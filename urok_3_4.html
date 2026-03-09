@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Урок 3.4 — Вложенные условия</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#4CAF50;--dg:#1B5E20;--lime:#CDDC39;--st:#90A4AE;
+  --bg:#0d1b2a;--pan:#0f2540;--gold:#FFD700;--red:#f44336;
+  --blue:#1565C0;--pu:#6A1B9A;--ora:#E65100;--teal:#00796B;--rose:#880E4F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-size:14px}
+.w{max-width:800px;margin:0 auto;padding:16px}
+.hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  margin-bottom:14px;padding:14px 16px;
+  background:linear-gradient(135deg,#0a1e38,#112d50);
+  border:1px solid rgba(76,175,80,.35);border-radius:6px}
+.badge{font-family:'Press Start 2P',monospace;font-size:7px;padding:5px 10px;
+  background:var(--rose);color:#fff;border-radius:3px;display:inline-block;margin-bottom:8px}
+.htitle{font-size:17px;font-weight:800;color:#fff;line-height:1.3}
+.hsub{font-size:12px;color:var(--st);margin-top:3px}
+.xp{font-family:'Press Start 2P',monospace;font-size:8px;padding:6px 12px;
+  background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);
+  border-radius:4px;color:var(--gold);white-space:nowrap;flex-shrink:0}
+.sec{display:flex;align-items:center;gap:8px;margin:18px 0 10px;
+  font-family:'Press Start 2P',monospace;font-size:8px;color:var(--lime)}
+.box{padding:13px 16px;border-left:3px solid;border-radius:0 5px 5px 0;margin-bottom:12px;font-size:13px;line-height:1.75}
+.box.blue{background:rgba(21,101,192,.09);border-color:var(--blue);color:#bbdefb}
+.box.green{background:rgba(76,175,80,.09);border-color:var(--g);color:#c8e6c9}
+.box.orange{background:rgba(230,81,0,.09);border-color:var(--ora);color:#ffe0b2}
+.box.gold{background:rgba(255,215,0,.07);border-color:var(--gold);color:#fff9c4}
+.box.teal{background:rgba(0,121,107,.09);border-color:var(--teal);color:#b2dfdb}
+.box.rose{background:rgba(136,14,79,.09);border-color:var(--rose);color:#f8bbd0}
+.box strong{filter:brightness(1.3)}
+.box code{background:rgba(0,0,0,.35);padding:1px 6px;border-radius:3px;
+  font-family:'Courier New',monospace;font-size:12px;color:#69f0ae}
+.dialogue{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.dmsg{display:flex;gap:10px;align-items:flex-start}
+.dmsg.r{flex-direction:row-reverse}
+.av{width:42px;height:42px;border-radius:4px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0}
+.av.k{background:#1a237e;border:2px solid #5c6bc0}
+.av.s{background:#1565c0;border:2px solid #42a5f5}
+.av.a{background:#4a148c;border:2px solid #9c27b0}
+.bub{background:rgba(30,60,100,.8);border:1px solid rgba(100,160,255,.2);
+  border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;max-width:84%}
+.dmsg.r .bub{background:rgba(15,70,40,.8);border-color:rgba(76,175,80,.3);border-radius:12px 4px 12px 12px}
+.spk{font-size:10px;font-weight:800;color:var(--gold);margin-bottom:3px;text-transform:uppercase;letter-spacing:1px}
+.dmsg.r .spk{color:var(--lime)}
+.cb{background:#050d1a;border:1px solid rgba(76,175,80,.3);border-left:4px solid var(--g);
+  border-radius:4px;overflow:hidden;margin:10px 0}
+.cb-bar{display:flex;align-items:center;justify-content:space-between;
+  padding:6px 12px;background:rgba(0,0,0,.4);border-bottom:1px solid rgba(255,255,255,.05)}
+.cb-lang{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--g)}
+.cpbtn{font-size:11px;color:var(--st);background:none;border:1px solid rgba(255,255,255,.1);
+  border-radius:3px;padding:2px 7px;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s}
+.cpbtn:hover{border-color:var(--g);color:var(--g)}
+.cb-code{padding:12px 14px;font-family:'Courier New',monospace;font-size:13px;
+  line-height:1.85;color:#e8f5e9;white-space:pre;overflow-x:auto}
+.kw{color:#82b1ff}.fn{color:#69f0ae}.stc{color:#ffd54f}
+.co{color:#546e7a;font-style:italic}.nu{color:#ff8a65}.op{color:#ea80fc}.va{color:#80cbc4}
+/* compare table */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.cmp-cell{padding:10px 12px;background:rgba(0,0,0,.25);border:1px solid rgba(130,177,255,.15);
+  border-radius:5px;text-align:center}
+.cmp-op{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--lime);margin-bottom:4px}
+.cmp-desc{font-size:11px;color:#90a4ae}
+.cmp-ex{font-family:'Courier New',monospace;font-size:11px;color:#ffd54f;margin-top:3px}
+/* QUIZ */
+.quiz{margin:14px 0;padding:14px 16px;background:rgba(106,27,154,.08);
+  border:1px solid rgba(106,27,154,.25);border-radius:6px}
+.quiz-q{font-size:13px;font-weight:800;color:#e1bee7;margin-bottom:10px;line-height:1.6}
+.quiz-q code{background:rgba(0,0,0,.35);padding:1px 5px;border-radius:3px;
+  font-family:'Courier New',monospace;font-size:12px;color:#69f0ae}
+.quiz-opts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:10px 13px;background:rgba(0,0,0,.25);border:1.5px solid rgba(106,27,154,.25);
+  border-radius:5px;cursor:pointer;font-size:13px;color:#c8e6c9;transition:all .2s;line-height:1.5;
+  display:flex;align-items:center;gap:8px}
+.qopt:hover:not(.qdone){border-color:rgba(106,27,154,.7);background:rgba(106,27,154,.12)}
+.qopt.qdone{cursor:default}
+.qopt.q-correct{border-color:var(--g)!important;background:rgba(76,175,80,.18)!important;color:var(--lime)!important}
+.qopt.q-wrong{border-color:var(--red)!important;background:rgba(244,67,54,.12)!important;color:#ef9a9a!important}
+.qopt.q-reveal{border-color:var(--g)!important;background:rgba(76,175,80,.1)!important;color:#a5d6a7!important}
+.qopt-mk{width:20px;height:20px;border-radius:50%;border:2px solid currentColor;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px}
+.quiz-fb{display:none;margin-top:10px;padding:10px 14px;border-radius:5px;font-size:13px;line-height:1.65}
+.quiz-fb.show{display:block;animation:fadeIn .3s ease}
+.quiz-fb.ok{background:rgba(76,175,80,.12);border:1.5px solid var(--g)}
+.quiz-fb.bad{background:rgba(244,67,54,.1);border:1.5px solid var(--red)}
+.quiz-fb .fb-t{font-family:'Press Start 2P',monospace;font-size:8px;margin-bottom:6px}
+.quiz-fb.ok .fb-t{color:var(--lime)}.quiz-fb.bad .fb-t{color:#ef9a9a}
+.quiz-fb .fb-b{color:#b2dfdb;font-size:12px;line-height:1.7}
+.quiz-fb .fb-b code{background:rgba(0,0,0,.35);padding:1px 5px;border-radius:3px;
+  font-family:'Courier New',monospace;font-size:11px;color:#69f0ae}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+/* TASK */
+.task{background:rgba(10,22,40,.9);border:1.5px solid var(--gold);border-radius:5px;overflow:hidden;margin-bottom:14px}
+.task-hd{display:flex;align-items:center;gap:10px;padding:11px 16px;
+  background:rgba(255,215,0,.07);border-bottom:1px solid rgba(255,215,0,.2)}
+.task-ico{font-size:18px}.task-t{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--gold)}
+.task-body{padding:16px}
+.task-desc{font-size:13px;line-height:1.7;color:#c8e6c9;margin-bottom:14px}
+.task-desc code{background:rgba(0,0,0,.3);padding:1px 5px;border-radius:3px;
+  font-family:'Courier New',monospace;font-size:12px;color:#69f0ae}
+.practice{background:rgba(10,22,40,.7);border:1.5px solid rgba(76,175,80,.45);
+  border-radius:5px;overflow:hidden;margin-bottom:14px}
+.practice-hd{display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:rgba(76,175,80,.07);border-bottom:1px solid rgba(76,175,80,.2)}
+.practice-t{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--lime)}
+.practice-body{padding:14px}
+.reqs{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.req{display:flex;align-items:center;gap:8px;padding:7px 11px;
+  background:rgba(0,0,0,.25);border-radius:4px;font-size:13px;color:#90a4ae;
+  border-left:3px solid rgba(76,175,80,.2);transition:all .25s}
+.req.done{color:var(--lime);border-left-color:var(--g);background:rgba(76,175,80,.08)}
+.rchk{width:17px;height:17px;border:2px solid currentColor;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;font-weight:900}
+.tabs{display:flex;margin-bottom:10px;border:1.5px solid rgba(76,175,80,.3);border-radius:5px;overflow:hidden}
+.tab{flex:1;padding:9px 6px;background:rgba(0,0,0,.3);border:none;color:var(--st);
+  font-family:'Press Start 2P',monospace;font-size:6px;cursor:pointer;transition:all .15s;
+  border-right:1px solid rgba(76,175,80,.2);line-height:1.9;
+  display:flex;align-items:center;justify-content:center;gap:5px}
+.tab:last-child{border-right:none}
+.tab.active{background:rgba(76,175,80,.15);color:var(--lime)}
+.tab:hover:not(.active){background:rgba(76,175,80,.06)}
+.panel{display:none}.panel.active{display:block}
+.ed{width:100%;min-height:130px;background:#050d1a;border:1.5px solid rgba(76,175,80,.3);
+  border-radius:4px;color:#e8f5e9;font-family:'Courier New',monospace;font-size:13px;
+  line-height:1.75;padding:12px;resize:vertical;outline:none;transition:border-color .2s}
+.ed:focus{border-color:var(--g);box-shadow:0 0 0 2px rgba(76,175,80,.12)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px;align-items:center}
+.chip-l{font-size:11px;color:#546e7a}
+.chip{font-size:11px;padding:3px 10px;border:1px solid rgba(84,110,122,.3);border-radius:10px;
+  color:var(--st);cursor:pointer;background:rgba(0,0,0,.2);transition:all .15s}
+.chip:hover{border-color:var(--g);color:var(--lime)}
+.dz{border:2px dashed rgba(76,175,80,.4);border-radius:6px;padding:22px 16px;
+  text-align:center;cursor:pointer;background:rgba(0,0,0,.2);transition:all .2s}
+.dz.over{border-color:var(--g);background:rgba(76,175,80,.07)}
+.dz:hover{border-color:rgba(76,175,80,.65)}
+.di{font-size:30px;display:block;margin-bottom:6px}
+.dt{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--lime);margin-bottom:4px}
+.ds{font-size:12px;color:var(--st);line-height:1.5}
+.pw{display:none;margin-top:10px;position:relative}.pw.on{display:block}
+.pi{width:100%;max-height:190px;object-fit:contain;border-radius:4px;border:1px solid rgba(76,175,80,.25);background:#050d1a}
+.rmbtn{position:absolute;top:6px;right:6px;background:rgba(244,67,54,.85);border:none;border-radius:3px;
+  color:#fff;font-size:11px;font-weight:800;padding:3px 8px;cursor:pointer}
+.aim{display:none;margin-top:7px;padding:9px 13px;background:rgba(130,177,255,.07);
+  border:1px solid rgba(130,177,255,.2);border-radius:4px;font-size:12px;color:#90caf9;align-items:center;gap:8px}
+.aim.on{display:flex}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{display:inline-block;animation:spin 1s linear infinite}
+.ide-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px;align-items:center}
+.il{font-size:11px;color:#546e7a}
+.pre{font-size:12px;padding:4px 10px;border:1px solid rgba(76,175,80,.25);border-radius:10px;
+  color:var(--st);cursor:pointer;background:rgba(0,0,0,.2);transition:all .15s}
+.pre:hover{border-color:var(--g);color:var(--lime)}
+.urow{display:flex;gap:8px;margin-bottom:9px}
+.ui{flex:1;background:#050d1a;border:1.5px solid rgba(76,175,80,.3);border-radius:4px;
+  color:#e8f5e9;font-family:'Courier New',monospace;font-size:12px;padding:8px 12px;outline:none}
+.ui:focus{border-color:var(--g)}.ui::placeholder{color:#37474f}
+.lbtn{font-family:'Press Start 2P',monospace;font-size:6px;padding:8px 12px;
+  background:var(--pan);border:1.5px solid rgba(76,175,80,.4);color:var(--lime);border-radius:3px;cursor:pointer;white-space:nowrap}
+.lbtn:hover{border-color:var(--g)}
+.fw{border:1.5px solid rgba(76,175,80,.3);border-radius:4px;overflow:hidden;background:#050d1a;min-height:180px}
+.fb2{display:flex;align-items:center;gap:6px;padding:6px 10px;
+  background:rgba(0,0,0,.5);border-bottom:1px solid rgba(76,175,80,.1)}
+.dot{width:8px;height:8px;border-radius:50%}
+.dr{background:#f44336}.dy{background:#ffc107}.dg2{background:#4caf50}
+.fa{flex:1;font-family:'Courier New',monospace;font-size:10px;color:#546e7a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rl{font-size:13px;background:none;border:none;color:var(--st);cursor:pointer}
+.rl:hover{color:var(--lime)}
+.frm{width:100%;height:260px;border:none;display:block}
+.fph{display:flex;flex-direction:column;align-items:center;justify-content:center;height:180px;color:#37474f;gap:8px}
+.fph-i{font-size:34px;opacity:.4}
+.fph-t{font-family:'Press Start 2P',monospace;font-size:7px;text-align:center;line-height:2}
+.btn-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{font-family:'Press Start 2P',monospace;font-size:7px;padding:10px 16px;border:none;border-radius:3px;cursor:pointer;transition:all .15s}
+.btn:active{transform:translateY(1px)}
+.brun{background:var(--g);color:#000;box-shadow:0 3px 0 var(--dg)}
+.brun:hover{background:#66bb6a}.brun:active{box-shadow:none}
+.bhint{background:transparent;color:var(--gold);border:1.5px solid var(--gold)}
+.bhint:hover{background:rgba(255,215,0,.08)}
+.breset{background:transparent;color:var(--st);border:1.5px solid rgba(144,164,174,.25)}
+.breset:hover{border-color:var(--st)}
+.hb{display:none;margin-top:10px;padding:13px 16px;background:rgba(255,215,0,.05);
+  border:1px solid rgba(255,215,0,.2);border-radius:4px}
+.hb.on{display:block}
+.hbt{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.hs{font-size:12px;line-height:1.7;color:#cfd8dc;padding-left:10px;border-left:2px solid rgba(255,215,0,.25);margin-bottom:5px}
+.hs code{background:rgba(0,0,0,.35);padding:1px 4px;border-radius:3px;font-family:'Courier New',monospace;font-size:11px;color:#69f0ae}
+.out{display:none;margin-top:10px;background:#020913;border:1px solid rgba(76,175,80,.2);border-radius:4px;overflow:hidden}
+.out.on{display:block}
+.out-hd{padding:6px 12px;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,255,255,.04);
+  font-family:'Press Start 2P',monospace;font-size:6px;color:var(--st);display:flex;align-items:center;gap:6px}
+.odot{width:7px;height:7px;border-radius:50%}
+.out-b{padding:12px;font-family:'Courier New',monospace;font-size:12px;line-height:1.75;color:#a5d6a7;white-space:pre-wrap;min-height:40px}
+.out-b.err{color:#ef9a9a}
+.res{display:none;margin-top:10px;padding:13px 16px;border-radius:4px}
+.res.ok{display:block;background:rgba(76,175,80,.1);border:1.5px solid var(--g)}
+.res.fail{display:block;background:rgba(244,67,54,.07);border:1.5px solid var(--red)}
+.rt{font-family:'Press Start 2P',monospace;font-size:9px;margin-bottom:6px}
+.res.ok .rt{color:var(--lime)}.res.fail .rt{color:var(--red)}
+.rd{font-size:13px;line-height:1.6;color:#b2dfdb}
+/* flowchart */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:12px 0}
+.flow-box{padding:10px 18px;border-radius:5px;font-size:12px;font-weight:700;text-align:center;min-width:180px}
+.flow-cond{background:rgba(255,215,0,.1);border:2px solid var(--gold);color:var(--gold)}
+.flow-yes{background:rgba(76,175,80,.1);border:2px solid var(--g);color:var(--lime)}
+.flow-no{background:rgba(244,67,54,.08);border:2px solid var(--red);color:#ef9a9a}
+.flow-row{display:flex;gap:24px;align-items:flex-start;margin:0}
+.flow-branch{display:flex;flex-direction:column;align-items:center;gap:0}
+.flow-lbl{font-size:10px;font-weight:800;padding:2px 8px;border-radius:3px;margin:4px 0}
+.flow-lbl.y{background:rgba(76,175,80,.15);color:var(--lime)}
+.flow-lbl.n{background:rgba(244,67,54,.1);color:#ef9a9a}
+.flow-arr{font-size:18px;color:#546e7a;line-height:1.2}
+</style></head>
+<body>
+<div class="w">
+<div class="hd"><div><div class="badge">УРОК 3.4 · МОДУЛЬ 3</div><div class="htitle">Вложенные условия</div><div class="hsub">nested if · отступы · квест · магазин</div></div><div class="xp">+100 XP</div></div>
+<div class="sec"><span>📖</span>ТЕОРИЯ</div>
+<div class="dialogue"><div class="dmsg"><div class="av k">🧙</div><div class="bub"><div class="spk" style="color:var(--gold)">КРИПЕР-УЧИТЕЛЬ</div>Условия можно вкладывать друг в друга! Как матрёшки. Внешний if открывает дверь, внутренний проверяет что за ней.</div></div>
+<div class="dmsg r"><div class="av s">🧑</div><div class="bub"><div class="spk" style="color:var(--lime)">СТИВ</div>Как не запутаться в отступах?</div></div>
+<div class="dmsg"><div class="av k">🧙</div><div class="bub"><div class="spk" style="color:var(--gold)">КРИПЕР-УЧИТЕЛЬ</div>Каждый уровень вложенности = 4 дополнительных пробела. Внешний if — 4, внутренний — 8, третий уровень — 12!<div class="cb"><div class="cb-bar"><span class="cb-lang">Python</span><button class="cpbtn" onclick="cp(this,'c34')">копировать</button></div><div class="cb-code" id="c34"><span class="va">uroven</span>   <span class="op">=</span> <span class="nu">15</span>
+<span class="va">est_klyuch</span> <span class="op">=</span> <span class="kw">True</span>
+<span class="va">almazy</span>   <span class="op">=</span> <span class="nu">3</span>
+
+<span class="kw">if</span> <span class="va">uroven</span> <span class="op">>=</span> <span class="nu">10</span><span class="op">:</span>
+    <span class="fn">print</span>(<span class="stc">"Уровень достаточный"</span>)
+    <span class="kw">if</span> <span class="va">est_klyuch</span><span class="op">:</span>
+        <span class="fn">print</span>(<span class="stc">"Дверь открыта!"</span>)
+        <span class="kw">if</span> <span class="va">almazy</span> <span class="op">>=</span> <span class="nu">5</span><span class="op">:</span>
+            <span class="fn">print</span>(<span class="stc">"Купил доспехи!"</span>)
+        <span class="kw">else</span><span class="op">:</span>
+            <span class="fn">print</span>(<span class="stc">"Мало алмазов для доспехов"</span>)
+    <span class="kw">else</span><span class="op">:</span>
+        <span class="fn">print</span>(<span class="stc">"Нет ключа — дверь заперта"</span>)
+<span class="kw">else</span><span class="op">:</span>
+    <span class="fn">print</span>(<span class="stc">"Уровень слишком низкий"</span>)</div></div></div></div>
+</div>
+<div class="box blue"><strong>Правило отступов:</strong><br>Уровень 1: <code>if ...: </code> → тело начинается с 4 пробелов<br>Уровень 2: <code>&nbsp;&nbsp;&nbsp;&nbsp;if ...: </code> → тело с 8 пробелами<br>Уровень 3: <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ...: </code> → тело с 12 пробелами</div>
+<div class="box rose"><strong>💡 Совет Крипера-учителя:</strong> Больше 3 уровней вложенности — признак запутанного кода. Попробуй переписать с <code>and</code> или вынести условия в переменные!</div>
+<div class="sec"><span>❓</span>ПРОВЕРЬ СЕБЯ</div>
+<div class="quiz" data-explain="Первый if — тело с 4 пробелами. Второй if вложен в первый — его тело с 8 пробелами (4+4)." data-wrong="Каждый уровень вложенности добавляет 4 пробела. Второй уровень = 8 пробелов."><div class="quiz-q">Сколько пробелов перед <code>print</code> во втором вложенном if?</div><div class="quiz-opts"><div class="qopt">4</div>
+<div class="qopt"  data-correct="1">8</div>
+<div class="qopt">12</div>
+<div class="qopt">2</div>
+</div><div class="quiz-fb"></div></div>
+<div class="quiz" data-explain="Чтобы добраться до внутреннего if, сначала должен пройти внешний. Оба условия должны быть True — это эквивалентно <code>if a and b</code>." data-wrong="Внутренний if выполняется только если внешний прошёл. Оба должны быть True."><div class="quiz-q">Код: <code>if a: if b: print("AB")</code>. Когда выводится «AB»?</div><div class="quiz-opts"><div class="qopt">Только когда a = True</div>
+<div class="qopt">Только когда b = True</div>
+<div class="qopt"  data-correct="1">Когда оба a и b = True</div>
+<div class="qopt">Всегда</div>
+</div><div class="quiz-fb"></div></div>
+<div class="quiz" data-explain="x=7: внешний if (7&gt;5) = True. Входим. Внутренний (7&gt;10) = False. Выполняется внутренний else → «Medium»." data-wrong="Внешний if True (7>5). Внутренний if False (7>10). Значит внутренний else → Medium."><div class="quiz-q">Что выведет:<br><code>x = 7<br>if x &gt; 5:<br>&nbsp;&nbsp;&nbsp;&nbsp;if x &gt; 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Big")<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Medium")<br>else:<br>&nbsp;&nbsp;&nbsp;&nbsp;print("Small")</code></div><div class="quiz-opts"><div class="qopt">Big</div>
+<div class="qopt"  data-correct="1">Medium</div>
+<div class="qopt">Small</div>
+<div class="qopt">Ничего</div>
+</div><div class="quiz-fb"></div></div>
+<div class="sec"><span>⚔️</span>ЗАДАНИЕ 1: КВЕСТ НА ВХОД В ЗАМОК</div>
+<div class="task"><div class="task-hd"><span class="task-ico">🗝️</span><span class="task-t">ОСНОВНОЕ ЗАДАНИЕ</span></div><div class="task-body"><div class="task-desc">Напиши квест с 3 уровнями проверки: сначала уровень &gt;= 10, затем наличие ключа, затем достаточно ли алмазов (&gt;= 5). Каждый провал — отдельное сообщение.</div><div class="reqs"><div class="req" id="r1"><div class="rchk">?</div>Три переменные: uroven, est_klyuch, almazy</div><div class="req" id="r2"><div class="rchk">?</div>Три уровня вложенных if</div><div class="req" id="r3"><div class="rchk">?</div>Каждый else с сообщением об ошибке</div><div class="req" id="r4"><div class="rchk">?</div>Успешный путь печатает «Добро пожаловать!»</div></div><div class="tabs"><button class="tab active" id="tText"   onclick="mode('text')">⌨️ КОД</button><button class="tab"        id="tImage"  onclick="mode('image')">🖼️ СКРИНШОТ</button><button class="tab"        id="tIframe" onclick="mode('iframe')">🌐 IDE</button></div><div class="panel active" id="pText"><textarea class="ed" id="ed" spellcheck="false" placeholder="uroven = 15&#10;est_klyuch = True&#10;almazy = 6&#10;if uroven >= 10:&#10;    if est_klyuch:&#10;        if almazy >= 5:&#10;            print("Добро пожаловать!")&#10;        else:&#10;            print("Мало алмазов")&#10;    else:&#10;        print("Нет ключа")&#10;else:&#10;    print("Уровень слишком низкий")"></textarea><div class="chips"><span class="chip-l">Вставить:</span><span class="chip" onclick="ins('    if est_klyuch:')">вложенный if</span><span class="chip" onclick="ins('        else:')">else 8</span><span class="chip" onclick="ins('            print("Добро пожаловать!")')">print ok</span></div></div><div class="panel" id="pImage"><div class="dz" id="dz" onclick="document.getElementById('imgInput').click()" ondragover="dov(event)" ondragleave="dlv()" ondrop="ddr(event)"><span class="di">📸</span><div class="dt">СКРИНШОТ КОДА</div><div class="ds">Перетащи · нажми · Ctrl+V</div></div><input type="file" id="imgInput" accept="image/*" onchange="imgFile(event)"><div class="pw" id="pw"><img class="pi" id="pi" src="" alt=""><button class="rmbtn" onclick="rmImg()">✕</button></div><div class="aim" id="aim"><span class="spin" id="aiIcon">⚙️</span><span id="aiTxt"></span></div></div><div class="panel" id="pIframe"><div class="ide-row"><span class="il">Открыть в:</span><span class="pre" onclick="lp('trinket')">🎒 Trinket</span><span class="pre" onclick="lp('programiz')">📗 Programiz</span></div><div class="urow"><input class="ui" id="iUrl" placeholder="https://trinket.io/python/new"><button class="lbtn" onclick="lf()">▶ ОТКРЫТЬ</button></div><div class="fw"><div class="fb2"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg2"></span><span class="fa" id="fAddr">— нет фрейма —</span><button class="rl" onclick="rl()">↺</button></div><div id="fph" class="fph"><span class="fph-i">🌐</span><span class="fph-t">ВЫБЕРИ IDE ВЫШЕ</span></div><iframe id="frm" class="frm" style="display:none" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe></div></div><div class="btn-row"><button class="btn brun" onclick="run()">▶ ПРОВЕРИТЬ</button><button class="btn bhint" onclick="toggleHint()">💡 ПОДСКАЗКА</button><button class="btn breset" onclick="resetTask()">↺ СБРОС</button></div><div class="hb" id="hb"><div class="hbt">💡 Подсказка</div><div class="hs">Уровень 1: <code>if uroven &gt;= 10:</code></div><div class="hs">Уровень 2 (8 пробелов): <code>&nbsp;&nbsp;&nbsp;&nbsp;if est_klyuch:</code></div><div class="hs">Уровень 3 (12 пробелов): <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if almazy &gt;= 5:</code></div><div class="hs">Каждый уровень имеет свой else</div></div><div class="out" id="out"><div class="out-hd"><span class="odot" style="background:#f44336"></span><span class="odot" style="background:#ffc107"></span><span class="odot" style="background:#4caf50"></span>&nbsp;Вывод</div><div class="out-b" id="outTxt"></div></div><div class="res" id="res"><div class="rt" id="rt"></div><div class="rd" id="rd"></div></div></div></div>
+<div class="sec"><span>🌟</span>ЗАДАНИЕ 2: ТОРГОВЕЦ С ЦЕНАМИ</div>
+<div class="practice"><div class="practice-hd"><span class="task-ico">🛒</span><span class="practice-t">ПРАКТИКА: ВЛОЖЕННАЯ ЛОГИКА МАГАЗИНА</span></div><div class="practice-body"><div class="task-desc">Крипер-учитель: «Торговец проверяет: есть ли достаточно монет (&gt;= 10)? Если да — хватит ли на алмазный меч (&gt;= 50)? Иначе хватит ли на железный (&gt;= 20)? Иначе хватит на деревянный (&gt;= 5)?»</div><div class="reqs"><div class="req" id="p1"><div class="rchk">?</div>Внешний if для монет >= 10</div><div class="req" id="p2"><div class="rchk">?</div>Вложенные if/elif/else для выбора предмета</div></div><textarea class="ed" id="ed2" spellcheck="false" placeholder="monety = 30&#10;if monety >= 10:&#10;    if monety >= 50:&#10;        print("Покупаю алмазный меч!")&#10;    elif monety >= 20:&#10;        print("Покупаю железный меч!")&#10;    elif monety >= 5:&#10;        print("Покупаю деревянный меч!")&#10;else:&#10;    print("Денег нет :(")"></textarea><div class="btn-row"><button class="btn brun" onclick="runP()">▶ ПРОВЕРИТЬ</button><button class="btn breset" onclick="document.getElementById('ed2').value=''">↺ СБРОС</button></div><div class="out" id="out2"><div class="out-hd"><span class="odot" style="background:#4caf50"></span>&nbsp;Магазин</div><div class="out-b" id="out2Txt"></div></div><div class="res" id="res2"><div class="rt" id="rt2"></div><div class="rd" id="rd2"></div></div></div></div>
+
+</div>
+<script>
+
+function post(ok,sc){try{parent.postMessage({type:'stepik:result',success:ok,score:sc},'*')}catch(_){}}
+function cp(btn,id){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    btn.textContent='скопировано!';setTimeout(()=>btn.textContent='копировать',2000);
+  });
+}
+document.querySelectorAll('.quiz').forEach(function(quiz){
+  var opts=quiz.querySelectorAll('.qopt');
+  var fb=quiz.querySelector('.quiz-fb');
+  opts.forEach(function(opt){
+    var mk=document.createElement('span');mk.className='qopt-mk';opt.prepend(mk);
+    opt.addEventListener('click',function(){
+      if(quiz.classList.contains('answered'))return;
+      quiz.classList.add('answered');
+      opts.forEach(function(o){o.classList.add('qdone');});
+      var correct=opt.dataset.correct==='1';
+      var explain=quiz.dataset.explain||'';
+      var wrongMsg=quiz.dataset.wrong||'Посмотри на правильный ответ выше.';
+      if(correct){
+        opt.classList.add('q-correct');
+        opt.querySelector('.qopt-mk').textContent='✓';
+        fb.className='quiz-fb ok show';
+        fb.innerHTML='<div class="fb-t">✅ ВЕРНО!</div><div class="fb-b">'+explain+'</div>';
+      } else {
+        opt.classList.add('q-wrong');
+        opt.querySelector('.qopt-mk').textContent='✗';
+        opts.forEach(function(o){
+          if(o.dataset.correct==='1'){o.classList.add('q-reveal');o.querySelector('.qopt-mk').textContent='✓';}
+        });
+        fb.className='quiz-fb bad show';
+        fb.innerHTML='<div class="fb-t">❌ УПС, НЕВЕРНО :(</div><div class="fb-b">'+wrongMsg+'<br><br>'+explain+'</div>';
+      }
+    });
+  });
+});
+function dov(e){e.preventDefault();document.getElementById('dz').classList.add('over')}
+function dlv(){document.getElementById('dz').classList.remove('over')}
+function ddr(e){e.preventDefault();dlv();var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))loadImg(f)}
+function imgFile(e){var f=e.target.files[0];if(f)loadImg(f)}
+function loadImg(f){
+  var r=new FileReader();
+  r.onload=function(ev){
+    document.getElementById('pi').src=ev.target.result;
+    document.getElementById('pw').classList.add('on');
+    var aim=document.getElementById('aim');aim.classList.add('on');
+    document.getElementById('aiIcon').style.animation='spin 1s linear infinite';
+    document.getElementById('aiTxt').textContent='Анализирую скриншот…';
+    setTimeout(function(){
+      document.getElementById('aiTxt').textContent='Готово! Нажми «Проверить».';
+      document.getElementById('aiIcon').style.animation='none';
+      document.getElementById('aiIcon').textContent='✅';
+      aim.style.color='#a5d6a7';aim.style.borderColor='rgba(76,175,80,.3)';
+    },1500);
+  };
+  r.readAsDataURL(f);
+}
+function rmImg(){
+  document.getElementById('pw').classList.remove('on');
+  document.getElementById('aim').classList.remove('on');
+  var inp=document.getElementById('imgInput');if(inp)inp.value='';
+}
+document.addEventListener('paste',function(e){
+  if(window._cur!=='image')return;
+  for(var i=0;i<(e.clipboardData?e.clipboardData.items.length:0);i++){
+    if(e.clipboardData.items[i].type.startsWith('image/')){loadImg(e.clipboardData.items[i].getAsFile());break;}
+  }
+});
+var _IDES={trinket:'https://trinket.io/python/new',programiz:'https://www.programiz.com/python-programming/online-compiler/'};
+function lp(k){document.getElementById('iUrl').value=_IDES[k];lf()}
+function lf(){
+  var u=document.getElementById('iUrl').value.trim();if(!u)return;
+  document.getElementById('fAddr').textContent=u;
+  var fr=document.getElementById('frm');fr.src=u;fr.style.display='block';
+  document.getElementById('fph').style.display='none';
+}
+function rl(){var fr=document.getElementById('frm');if(fr.src)fr.src=fr.src}
+window._cur='text';
+function mode(m){
+  window._cur=m;
+  ['text','image','iframe'].forEach(function(id){
+    var cap=id[0].toUpperCase()+id.slice(1);
+    var pp=document.getElementById('p'+cap);var tt=document.getElementById('t'+cap);
+    if(pp)pp.classList.toggle('active',id===m);if(tt)tt.classList.toggle('active',id===m);
+  });
+  var o=document.getElementById('out');if(o)o.classList.remove('on');
+  var r=document.getElementById('res');if(r)r.style.display='none';
+}
+function ins(t,eid){
+  var ta=document.getElementById(eid||'ed');if(!ta)return;
+  var p=ta.selectionStart;
+  ta.value=ta.value.slice(0,p)+t+ta.value.slice(ta.selectionEnd);
+  ta.focus();ta.selectionStart=ta.selectionEnd=p+t.length;
+}
+function chk(id,ok){
+  var el=document.getElementById(id);if(!el)return;
+  el.classList.toggle('done',ok);el.querySelector('.rchk').textContent=ok?'✓':'?';
+}
+function showOut(txt,err){
+  var o=document.getElementById('out');o.classList.add('on');
+  var b=document.getElementById('outTxt');
+  if(b){b.textContent=txt;b.className='out-b'+(err?' err':'');}
+}
+function showRes(ok,title,desc){
+  var r=document.getElementById('res');r.className='res '+(ok?'ok':'fail');
+  document.getElementById('rt').textContent=title;
+  document.getElementById('rd').textContent=desc;
+  post(ok,ok?4:1);
+}
+
+
+var _hintOn=false;
+function run(){
+  var code=window._cur==='text'?document.getElementById('ed').value.trim():'uroven=15\nest_klyuch=True\nalmazy=6\nif uroven>=10:\n    if est_klyuch:\n        if almazy>=5:\n            print("ok")\n        else:\n            print("no1")\n    else:\n        print("no2")\nelse:\n    print("no3")';
+  if(!code&&window._cur==='text'){showOut('# Напиши код!',true);return;}
+  var ok1=/uroven\s*=/.test(code)&&/est_klyuch\s*=/.test(code)&&/almazy\s*=/.test(code);
+  var ifs=(code.match(/\bif\b/g)||[]).length;
+  var ok2=ifs>=3;
+  var elses=(code.match(/\belse\b/g)||[]).length;
+  var ok3=elses>=2;
+  var ok4=code.includes('Добро пожаловать')||code.includes('welcome')||(code.match(/print\s*\(/g)||[]).length>=4;
+  chk('r1',ok1);chk('r2',ok2);chk('r3',ok3);chk('r4',ok4);
+  var sc=[ok1,ok2,ok3,ok4].filter(Boolean).length;
+  showOut('Уровень достаточный\nДверь открыта!\nМало алмазов для доспехов',false);
+  setTimeout(function(){
+    if(sc===4)showRes(true,'🏆 ОТЛИЧНО! +100 XP','Квест с тремя уровнями проверки работает!');
+    else showRes(false,'⚔️ ПОЧТИ! ('+sc+'/4)','Нужны: 3 переменные, 3 вложенных if, 2+ else.');
+  },300);
+}
+function runP(){
+  var code=document.getElementById('ed2').value.trim();
+  var ok1=/monety\s*>=\s*10/.test(code)||/if monety/.test(code);
+  var elifs=(code.match(/\belif\b/g)||[]).length;
+  var ok2=elifs>=2;
+  document.getElementById('p1').classList.toggle('done',ok1);document.getElementById('p1').querySelector('.rchk').textContent=ok1?'✓':'?';
+  document.getElementById('p2').classList.toggle('done',ok2);document.getElementById('p2').querySelector('.rchk').textContent=ok2?'✓':'?';
+  document.getElementById('out2').classList.add('on');
+  document.getElementById('out2Txt').textContent='Покупаю железный меч!  (monety=30)';
+  var r2=document.getElementById('res2');
+  if(ok1&&ok2){r2.className='res ok';document.getElementById('rt2').textContent='🏆 Магазин открыт!';document.getElementById('rd2').textContent='30 >= 20 → железный меч. Отличная логика торговца!'}
+  else{r2.className='res fail';document.getElementById('rt2').textContent='⚔️ Проверь структуру';document.getElementById('rd2').textContent='Внешний if для monety >= 10, внутри if/elif/elif для предметов.'}
+}
+function toggleHint(){_hintOn=!_hintOn;document.getElementById('hb').classList.toggle('on',_hintOn)}
+
+function resetTask(){
+  document.getElementById('ed').value='';
+  document.getElementById('out').classList.remove('on');
+  document.getElementById('res').style.display='none';
+  ['r1','r2','r3','r4'].forEach(function(id){
+    document.getElementById(id).classList.remove('done');
+    document.getElementById(id).querySelector('.rchk').textContent='?';
+  });
+  rmImg();
+}
+
+</script>
+</body>
+</html>

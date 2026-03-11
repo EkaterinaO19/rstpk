@@ -467,9 +467,413 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
     <p style="font-size:13px;color:#90a4ae;margin:0 0 10px">Выбери что тебе подходит — нажми на вкладку:</p>
 
     <!-- EDITOR TABS — FIXED STRUCTURE -->
-    <div class="editor-section">э
+    <div class="editor-section">
       <div class="os-tabs" role="tablist">
         <button class="os-tab active" onclick="setEditor('vscode')" role="tab" aria-selected="true">
           <span class="tab-icon">💙</span>VS Code<span class="tab-sub">для продвинутых</span>
         </button>
-<button class="os-
+<button class="os-tab" onclick="setEditor('idle')" role="tab" aria-selected="false">
+          <span class="tab-icon">🐍</span>IDLE<span class="tab-sub">уже установлен</span>
+        </button>
+      </div>
+
+      <div class="os-panels">
+
+        <!-- VS CODE -->
+        <div class="os-panel active" id="ed-vscode">
+          <div class="substep">
+            <div class="sub-ico">💙</div>
+            <div class="sub-body">
+              <div class="sub-title">VS Code — мощный редактор как у профессионалов</div>
+              <div class="sub-text">
+                VS Code используют профессиональные программисты. Подходит если хочется профессиональный инструмент с богатыми возможностями.<br><br>
+                📥 Скачай на <strong><a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></strong><br><br>
+                После установки: Extensions (иконка квадратиков слева) → найди и установи <strong>«Python»</strong> от Microsoft.
+              </div>
+            </div>
+          </div>
+          <div class="substep tip">
+            <div class="sub-ico">▶️</div>
+            <div class="sub-body">
+              <div class="sub-title">Как запустить программу</div>
+              <div class="sub-text">Открой файл .py → нажми кнопку <strong>▶ Run Python File</strong> (треугольник в правом верхнем углу) или <code>Ctrl+F5</code>.</div>
+            </div>
+          </div>
+          <div class="substep warn">
+            <div class="sub-ico">⚠️</div>
+            <div class="sub-body">
+              <div class="sub-title">Красные подчёркивания под mcpi?</div>
+              <div class="sub-text">Это нормально — VS Code не знает про mcpi заранее. Просто нажми Run. Если программа работает, красные линии можно игнорировать.</div>
+            </div>
+          </div>
+        </div>
+
+        
+        <!-- IDLE --><!-- IDLE -->
+        <div class="os-panel" id="ed-idle">
+          <div class="substep">
+            <div class="sub-ico">🐍</div>
+            <div class="sub-body">
+              <div class="sub-title">IDLE — уже установлен вместе с Python</div>
+              <div class="sub-text">
+                IDLE устанавливается автоматически вместе с Python. Базовый, но работает сразу без лишних шагов.<br><br>
+                <strong>Как найти IDLE:</strong><br>
+                Windows: меню Пуск → ищи «IDLE» или «Python»<br>
+                Mac: Finder → Applications → Python → IDLE
+              </div>
+            </div>
+          </div>
+          <div class="substep tip">
+            <div class="sub-ico">▶️</div>
+            <div class="sub-body">
+              <div class="sub-title">Как запустить программу</div>
+              <div class="sub-text">File → New File → напиши код → <strong>Run → Run Module</strong> (или <code>F5</code>). Сохрани файл с расширением <code>.py</code> перед запуском.</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /os-panels -->
+    </div><!-- /editor-section -->
+
+    <div class="substep warn" style="margin-top:14px">
+      <div class="sub-ico">🚫</div>
+      <div class="sub-body">
+        <div class="sub-title">Не пиши код в Word или обычном Блокноте!</div>
+        <div class="sub-text">Word добавляет невидимые символы и «умные» кавычки — Python их не понимает и выдаёт ошибки. Только специальный редактор кода.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ ШАГ 4 — MINECRAFT ═══════════ -->
+<div class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num sn4">04</div>
+    <div class="step-ico">🧱</div>
+    <div>
+      <div class="step-title">Подготавливаем Minecraft</div>
+      <div class="step-subtitle">Настройка игры для работы с Python</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="substep info">
+      <div class="sub-ico">ℹ️</div>
+      <div class="sub-body">
+        <div class="sub-title">Какой Minecraft нужен?</div>
+        <div class="sub-text">Нужен <strong>Minecraft: Java Edition</strong> — это классическая версия для компьютера. Не Bedrock (Windows 10/11 Edition), не телефон, не консоль — только Java Edition.</div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="cmp good">
+        <div class="cmp-head">✅ Подходит</div>
+        <div class="cmp-body">Minecraft: Java Edition<br>Скачивается на minecraft.net<br>Запускается через лаунчер</div>
+      </div>
+      <div class="cmp bad">
+        <div class="cmp-head">❌ Не подходит</div>
+        <div class="cmp-body">Minecraft Bedrock Edition<br>Minecraft на телефоне<br>Minecraft на Xbox / PlayStation</div>
+      </div>
+    </div>
+
+    <div class="substep highlight">
+      <div class="sub-ico">1️⃣</div>
+      <div class="sub-body">
+        <div class="sub-title">Установи мод RaspberryJuice</div>
+        <div class="sub-text">
+          mcpi работает с Minecraft через специальный мод. Его нужно скачать и положить в папку с модами.<br><br>
+          📥 Скачай <strong>RaspberryJuice</strong>: <strong><a href="https://dev.bukkit.org/projects/raspberryjuice" target="_blank">dev.bukkit.org/projects/raspberryjuice</a></strong><br><br>
+          Скачается файл <code>raspberryjuice-x.x.jar</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep highlight">
+      <div class="sub-ico">2️⃣</div>
+      <div class="sub-body">
+        <div class="sub-title">Положи мод в правильную папку</div>
+        <div class="sub-text">
+          <strong>Windows:</strong> <code>C:\Users\ТвоёИмя\AppData\Roaming\.minecraft\mods</code><br>
+          <strong>Mac:</strong> <code>~/Library/Application Support/minecraft/mods</code><br><br>
+          Положи скачанный <code>.jar</code> файл в эту папку.
+        </div>
+      </div>
+    </div>
+
+    <div class="substep tip">
+      <div class="sub-ico">🎮</div>
+      <div class="sub-body">
+        <div class="sub-title">Более простой вариант — Minecraft Education Edition</div>
+        <div class="sub-text">
+          Если есть доступ к <strong>Minecraft Education Edition</strong> — он уже поддерживает Python через встроенные инструменты. Спроси учителя или воспользуйся школьной лицензией.
+        </div>
+      </div>
+    </div>
+
+    <div class="substep highlight">
+      <div class="sub-ico">3️⃣</div>
+      <div class="sub-body">
+        <div class="sub-title">Запусти Minecraft и войди в мир</div>
+        <div class="sub-text">
+          Открой Minecraft → Одиночная игра → создай новый мир или открой существующий.<br><br>
+          ⚠️ Важно: мир должен быть <strong>открыт</strong> пока ты запускаешь Python-программу. Не в меню, а именно внутри игры.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ ШАГ 5 — ЗАПУСК ═══════════ -->
+<div class="step" id="step5">
+  <div class="step-head">
+    <div class="step-num sn5">05</div>
+    <div class="step-ico">🚀</div>
+    <div>
+      <div class="step-title">Первый запуск!</div>
+      <div class="step-subtitle">Пишем первую программу для Minecraft</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="substep info">
+      <div class="sub-ico">📋</div>
+      <div class="sub-body">
+        <div class="sub-title">Порядок запуска — строго по шагам!</div>
+        <div class="sub-text">Minecraft должен быть запущен <strong>до</strong> того как ты запускаешь Python-программу. Не наоборот!</div>
+      </div>
+    </div>
+
+    <div class="check-progress"><div class="check-progress-bar" id="progressBar"></div></div>
+
+    <div class="checks" id="launchChecks">
+      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 1: Открыл Minecraft Java Edition</div>
+      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 2: Вошёл в мир (не в главном меню!)</div>
+      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 3: Открыл редактор кода (VS Code / IDLE)</div>
+      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 4: Создал новый файл и сохранил как <code>hello.py</code></div>
+      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 5: Написал код (смотри ниже)</div>
+      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 6: Нажал Run / F5 для запуска</div>
+    </div>
+
+    <div class="substep highlight">
+      <div class="sub-ico">💻</div>
+      <div class="sub-body">
+        <div class="sub-title">Напиши этот код в редакторе</div>
+        <div class="sub-text">Это твоя первая mcpi-программа! Скопируй или напиши вручную:</div>
+        <div class="cb">
+          <div class="cb-bar">
+            <span class="cb-lang">Python — hello.py</span>
+            <button class="cpbtn" onclick="copyCode('from mcpi.minecraft import Minecraft\nmc = Minecraft.create()\nmc.postToChat(&quot;Привет из Python! Я работаю!&quot;)\nprint(&quot;Программа запущена!&quot;)', this)">копировать</button>
+          </div>
+          <div class="cb-code"><span class="kw">from</span> mcpi.minecraft <span class="kw">import</span> Minecraft
+
+mc <span class="kw">=</span> Minecraft.create()
+mc.postToChat(<span class="st">"Привет из Python! Я работаю!"</span>)
+<span class="fn">print</span>(<span class="st">"Программа запущена!"</span>)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep highlight">
+      <div class="sub-ico">▶️</div>
+      <div class="sub-body">
+        <div class="sub-title">Нажми Run (F5) и посмотри в Minecraft!</div>
+        <div class="sub-text">
+          Переключись в Minecraft — в чате должно появиться: <strong>«Привет из Python! Я работаю!»</strong><br><br>
+          В редакторе кода должно напечататься: <code>Программа запущена!</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-box">
+      <div class="rb-title">🎉 ЕСЛИ ВСЁ ПОЯВИЛОСЬ — ТЫ ПОДКЛЮЧИЛСЯ!</div>
+      <div class="rb-body">Python нашёл Minecraft и отправил ему сообщение. Теперь твой код управляет игрой! Можно начинать уроки 🚀</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ ШАГ 6 — ФАЙЛЫ ═══════════ -->
+<div class="step" id="step6">
+  <div class="step-head">
+    <div class="step-num sn6">06</div>
+    <div class="step-ico">📁</div>
+    <div>
+      <div class="step-title">Как хранить файлы с кодом</div>
+      <div class="step-subtitle">Порядок в папках — порядок в голове</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="substep highlight">
+      <div class="sub-ico">📂</div>
+      <div class="sub-body">
+        <div class="sub-title">Создай специальную папку для курса</div>
+        <div class="sub-text">Создай на рабочем столе папку <code>python_minecraft</code>. Внутри неё создай папки для каждого модуля:</div>
+        <div class="cb">
+          <div class="cb-bar"><span class="cb-lang">Структура папок</span></div>
+          <div class="cb-code">📁 python_minecraft/
+   📁 module1/
+      📄 urok_1_1.py
+      📄 urok_1_2.py
+   📁 module2/
+      📄 urok_2_1.py
+   📁 moi_proekty/
+      📄 moj_zamok.py</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="substep tip">
+      <div class="sub-ico">💾</div>
+      <div class="sub-body">
+        <div class="sub-title">Важные правила для файлов</div>
+        <div class="sub-text">
+          ✅ Имя файла всегда заканчивается на <code>.py</code><br>
+          ✅ Без пробелов: <code>moj_zamok.py</code> вместо <code>мой замок.py</code><br>
+          ✅ Сохраняй перед запуском: <code>Ctrl+S</code> (Win) / <code>Cmd+S</code> (Mac)<br>
+          ✅ Каждый урок — отдельный файл
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<div style="margin-top:28px;margin-bottom:8px">
+  <div style="font-family:'Press Start 2P',monospace;font-size:9px;color:var(--lime);margin-bottom:14px">❓ ЧАСТЫЕ ВОПРОСЫ</div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">😤</span>Написал код, нажал Run — ничего не происходит!<span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Скорее всего Minecraft не запущен или ты не в мире (на паузе или в главном меню). Проверь: открыт ли Minecraft, ты внутри мира, не нажата ли пауза (Escape). Потом снова нажми Run.</div></div>
+  </div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">🔴</span>Ошибка <code>ModuleNotFoundError: No module named 'mcpi'</code><span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">mcpi не установлена. Открой командную строку и введи: <code>pip install mcpi</code>. Подожди пока установится. Если не помогло — попробуй <code>pip3 install mcpi</code>.</div></div>
+  </div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">🔴</span>Ошибка <code>ConnectionRefusedError</code> или <code>Connection refused</code><span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Python не может подключиться к Minecraft. Причины: 1) Minecraft не запущен — открой игру и войди в мир. 2) Нет мода RaspberryJuice — установи его. 3) Брандмауэр блокирует — разреши Minecraft в настройках брандмауэра.</div></div>
+  </div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">🔴</span>Ошибка <code>NameError: name 'Minecraft' is not defined</code><span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Забыл написать первую строку импорта! Проверь что в самом начале программы есть: <code>from mcpi.minecraft import Minecraft</code> — с заглавной буквой M!</div></div>
+  </div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">🔴</span>Красные волнистые линии под кодом в редакторе<span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Это не всегда ошибка! Редактор иногда подчёркивает mcpi потому что не знает про эту библиотеку заранее. Просто нажми Run — если программа работает, красные линии можно игнорировать.</div></div>
+  </div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">❓</span>У меня нет Minecraft. Могу я проходить курс?<span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Да! Модуль 1 и большая часть заданий работают без Minecraft — используй онлайн-редактор Trinket (<a href="https://trinket.io" target="_blank">trinket.io</a>) прямо в браузере. Уроки с mcpi потребуют игру, но основы Python доступны без неё.</div></div>
+  </div>
+
+  <div class="faq" onclick="toggleFaq(this)">
+    <div class="faq-q"><span class="faq-ico">🌐</span>Можно ли писать код онлайн без установки?<span class="faq-arr">▼</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Для обычного Python без mcpi — да! Используй <strong>trinket.io/python/new</strong> или <strong>programiz.com/python-programming/online-compiler</strong>. Для заданий с mcpi — только на своём компьютере с установленным Minecraft.</div></div>
+  </div>
+
+</div>
+
+<!-- FINAL -->
+<div class="final">
+  <h2>🟢 ВСЁ ГОТОВО!<br>МОЖНО НАЧИНАТЬ!</h2>
+  <p>Python установлен, mcpi подключена, редактор открыт, Minecraft запущен. Ты готов к первому уроку!</p>
+  <button class="final-go" onclick="alert('Открой Урок 1.1 в курсе!')">▶ УРОК 1.1 — ПОЕХАЛИ!</button>
+</div>
+
+<div style="text-align:center;padding:20px;font-size:11px;color:#37474f;margin-top:16px">
+  Python в Minecraft: Код, который строит миры · Руководство по настройке
+</div>
+
+</div><!-- /w -->
+
+<!-- SCROLL TO TOP -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">↑</div>
+
+<script>
+// ── COPY CODE ──
+function copyCode(text, btn) {
+  const clean = text.replace(/&quot;/g, '"');
+  navigator.clipboard.writeText(clean).then(() => {
+    btn.textContent = '✓ скопировано';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'копировать'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = clean; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ скопировано';
+    setTimeout(() => btn.textContent = 'копировать', 2000);
+  });
+}
+
+// ── EDITOR TABS — FIXED ──
+function setEditor(id) {
+  const ids = ['vscode', 'idle'];
+  document.querySelectorAll('.os-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', ids[i] === id);
+    tab.setAttribute('aria-selected', ids[i] === id);
+  });
+  ids.forEach(name => {
+    const panel = document.getElementById('ed-' + name);
+    if (panel) panel.classList.toggle('active', name === id);
+  });
+}
+
+// ── CHECKLIST WITH PROGRESS BAR ──
+function tick(el) {
+  el.classList.toggle('ticked');
+  el.querySelector('.ch-box').textContent = el.classList.contains('ticked') ? '✓' : '?';
+  const checks = document.querySelectorAll('#launchChecks .check');
+  const done = [...checks].filter(c => c.classList.contains('ticked')).length;
+  const pct = Math.round(done / checks.length * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ── FAQ TOGGLE ──
+function toggleFaq(el) {
+  // close others
+  document.querySelectorAll('.faq.open').forEach(f => { if (f !== el) f.classList.remove('open'); });
+  el.classList.toggle('open');
+}
+
+// ── PROGRESS BAR SCROLL NAV ──
+function gotoStep(n) {
+  const el = document.getElementById('step' + n);
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - 16;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.prog-step').forEach((s, i) => {
+    s.classList.toggle('active', i === n - 1);
+    s.classList.toggle('done', i < n - 1);
+  });
+}
+
+// ── AUTO-UPDATE PROGRESS ON SCROLL ──
+const stepEls = [1,2,3,4,5,6].map(n => document.getElementById('step' + n));
+window.addEventListener('scroll', () => {
+  const mid = window.scrollY + window.innerHeight / 2;
+  let current = 0;
+  stepEls.forEach((el, i) => { if (el && el.offsetTop <= mid) current = i; });
+  document.querySelectorAll('.prog-step').forEach((s, i) => {
+    s.classList.toggle('active', i === current);
+    s.classList.toggle('done', i < current);
+  });
+  // back to top
+  document.getElementById('backTop').classList.toggle('show', window.scrollY > 300);
+}, { passive: true });
+</script>
+</body>
+</html>

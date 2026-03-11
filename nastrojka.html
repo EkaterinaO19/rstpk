@@ -92,7 +92,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
 .substep.tip{background:rgba(255,215,0,.05);border-left-color:var(--gold)}
 .substep.info{background:rgba(30,136,229,.06);border-left-color:var(--blue)}
 .sub-ico{font-size:22px;flex-shrink:0;margin-top:2px}
-.sub-body{}
+.sub-body{flex:1;min-width:0}
 .sub-title{font-weight:900;font-size:14px;color:#fff;margin-bottom:4px}
 .sub-text{font-size:13px;color:#b2dfdb;line-height:1.7}
 .sub-text code{
@@ -117,10 +117,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
 .cb-lang{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--g)}
 .cpbtn{
   font-size:11px;color:var(--st);background:none;
-  border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:2px 8px;
+  border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:3px 10px;
   cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;
 }
 .cpbtn:hover{border-color:var(--g);color:var(--g)}
+.cpbtn.copied{border-color:var(--lime);color:var(--lime)}
 .cb-code{
   padding:14px 16px;font-family:'Courier New',monospace;font-size:13px;
   line-height:1.85;color:#e8f5e9;overflow-x:auto;white-space:pre;
@@ -153,18 +154,33 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
   font-size:12px;font-weight:900;transition:all .2s;
 }
 
-/* ── OS TABS ── */
-.os-tabs{display:flex;gap:0;margin-bottom:12px;border-radius:5px;overflow:hidden;border:1.5px solid rgba(255,255,255,.08)}
+/* ── EDITOR TABS — FIXED ── */
+.editor-section{margin-top:14px}
+
+.os-tabs{
+  display:flex;gap:0;border-radius:6px 6px 0 0;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.1);border-bottom:none;
+}
 .os-tab{
-  flex:1;padding:9px 6px;background:rgba(0,0,0,.3);border:none;
+  flex:1;padding:11px 8px;background:rgba(0,0,0,.4);border:none;
   color:#546e7a;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;
-  cursor:pointer;transition:all .15s;border-right:1px solid rgba(255,255,255,.06);
-  display:flex;align-items:center;justify-content:center;gap:6px;
+  cursor:pointer;transition:all .2s;border-right:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;gap:7px;flex-direction:column;
+  line-height:1.4;
 }
 .os-tab:last-child{border-right:none}
-.os-tab.active{background:rgba(30,136,229,.15);color:#90caf9}
-.os-tab:hover:not(.active){background:rgba(255,255,255,.04)}
-.os-panel{display:none}.os-panel.active{display:block}
+.os-tab .tab-icon{font-size:18px}
+.os-tab .tab-sub{font-size:10px;font-weight:600;color:#37474f;margin-top:1px}
+.os-tab.active{background:rgba(30,136,229,.15);color:#90caf9;border-bottom:2px solid var(--blue)}
+.os-tab.active .tab-sub{color:#64b5f6}
+.os-tab:hover:not(.active){background:rgba(255,255,255,.05);color:#90a4ae}
+
+.os-panels{
+  border:1.5px solid rgba(255,255,255,.1);border-radius:0 0 6px 6px;
+  background:rgba(0,0,0,.15);overflow:hidden;
+}
+.os-panel{display:none;padding:16px}
+.os-panel.active{display:block}
 
 /* ── COMPARE ── */
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
@@ -186,7 +202,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
 
 /* ── SCHEME ── */
 .scheme{
-  display:flex;align-items:center;justify-content:center;gap:0;
+  display:flex;align-items:center;justify-content:center;
   margin:16px 0;flex-wrap:wrap;gap:4px;
 }
 .sch-box{
@@ -194,7 +210,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
   text-align:center;min-width:120px;
 }
 .sb-py{background:rgba(30,136,229,.15);border:2px solid var(--blue);color:#90caf9}
-.sb-arrow{font-size:22px;color:#546e7a;padding:0 4px}
+.sb-arrow{font-size:22px;color:#546e7a;padding:0 4px;display:flex;align-items:center}
 .sb-mc{background:rgba(76,175,80,.12);border:2px solid var(--g);color:var(--lime)}
 .sb-mcpi{background:rgba(123,31,162,.12);border:2px solid var(--pu);color:#ce93d8}
 
@@ -207,13 +223,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
 }
 .faq-q:hover{background:rgba(106,27,154,.1)}
 .faq-ico{font-size:18px;flex-shrink:0}
-.faq-arr{margin-left:auto;color:#546e7a;transition:transform .2s;font-size:14px}
+.faq-arr{margin-left:auto;color:#546e7a;transition:transform .25s;font-size:14px}
 .faq.open .faq-arr{transform:rotate(180deg)}
 .faq-a{
-  display:none;padding:14px 16px;background:rgba(106,27,154,.05);
-  border-top:1px solid rgba(255,255,255,.04);font-size:13px;color:#b2dfdb;line-height:1.75;
+  max-height:0;overflow:hidden;transition:max-height .3s ease;
+  background:rgba(106,27,154,.05);border-top:0px solid rgba(255,255,255,.04);
 }
-.faq.open .faq-a{display:block}
+.faq.open .faq-a{max-height:400px;border-top:1px solid rgba(255,255,255,.04)}
+.faq-a-inner{padding:14px 16px;font-size:13px;color:#b2dfdb;line-height:1.75}
 .faq-a code{background:rgba(0,0,0,.4);padding:1px 6px;border-radius:3px;
   font-family:'Courier New',monospace;font-size:12px;color:#69f0ae}
 
@@ -229,19 +246,35 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
   display:inline-block;font-family:'Press Start 2P',monospace;font-size:8px;
   padding:12px 24px;background:var(--g);color:#000;border-radius:4px;
   box-shadow:0 4px 0 var(--dg);cursor:pointer;border:none;
-  transition:all .15s;
+  transition:all .15s;letter-spacing:1px;
 }
 .final-go:hover{background:#66bb6a}
 .final-go:active{transform:translateY(2px);box-shadow:0 2px 0 var(--dg)}
 
-/* ── MONSTER TAG ── */
-.monster{
-  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;
-  border-radius:12px;font-size:11px;font-weight:800;
-  vertical-align:middle;margin:0 2px;
+/* ── PROGRESS MINI ── */
+.check-progress{
+  height:4px;background:rgba(76,175,80,.15);border-radius:2px;margin:0 0 14px;overflow:hidden;
 }
-.m-creeper{background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.3);color:var(--lime)}
-.m-steve{background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.3);color:#90caf9}
+.check-progress-bar{height:100%;background:var(--g);border-radius:2px;transition:width .4s ease;width:0%}
+
+/* ── SCROLL TO TOP ── */
+.back-top{
+  position:fixed;bottom:24px;right:24px;width:42px;height:42px;
+  background:rgba(76,175,80,.15);border:1.5px solid rgba(76,175,80,.4);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--lime);font-size:18px;opacity:0;transition:all .3s;
+  backdrop-filter:blur(8px);z-index:99;
+}
+.back-top.show{opacity:1}
+.back-top:hover{background:rgba(76,175,80,.25)}
+
+@media(max-width:600px){
+  .compare{grid-template-columns:1fr}
+  .scheme{flex-direction:column}
+  .sb-arrow{transform:rotate(90deg)}
+  .hero h1{font-size:11px}
+  .os-tab{font-size:11px;padding:9px 4px}
+}
 </style>
 </head>
 <body>
@@ -263,17 +296,15 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
 
 <!-- PROGRESS -->
 <div class="progress" id="progress">
-  <div class="prog-step active" onclick="scrollTo(1)"><span class="ps-num">01</span>Python</div>
-  <div class="prog-step" onclick="scrollTo(2)"><span class="ps-num">02</span>mcpi</div>
-  <div class="prog-step" onclick="scrollTo(3)"><span class="ps-num">03</span>Редактор</div>
-  <div class="prog-step" onclick="scrollTo(4)"><span class="ps-num">04</span>Minecraft</div>
-  <div class="prog-step" onclick="scrollTo(5)"><span class="ps-num">05</span>Запуск</div>
-  <div class="prog-step" onclick="scrollTo(6)"><span class="ps-num">06</span>Готово!</div>
+  <div class="prog-step active" onclick="gotoStep(1)"><span class="ps-num">01</span>Python</div>
+  <div class="prog-step" onclick="gotoStep(2)"><span class="ps-num">02</span>mcpi</div>
+  <div class="prog-step" onclick="gotoStep(3)"><span class="ps-num">03</span>Редактор</div>
+  <div class="prog-step" onclick="gotoStep(4)"><span class="ps-num">04</span>Minecraft</div>
+  <div class="prog-step" onclick="gotoStep(5)"><span class="ps-num">05</span>Запуск</div>
+  <div class="prog-step" onclick="gotoStep(6)"><span class="ps-num">06</span>Готово!</div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     ШАГ 1 — PYTHON
-════════════════════════════════════════════ -->
+<!-- ═══════════ ШАГ 1 — PYTHON ═══════════ -->
 <div class="step" id="step1">
   <div class="step-head">
     <div class="step-num sn1">01</div>
@@ -327,14 +358,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
       <div class="sub-body">
         <div class="sub-title">Проверь что всё получилось</div>
         <div class="sub-text">
-          После установки нужно проверить. Открой <strong>командную строку</strong>:
-          <br><br>
+          После установки нужно проверить. Открой <strong>командную строку</strong>:<br><br>
           <strong>Windows:</strong> нажми <code>Win + R</code>, напиши <code>cmd</code>, нажми Enter<br>
           <strong>Mac:</strong> нажми <code>Cmd + Пробел</code>, напиши <code>terminal</code>, нажми Enter<br><br>
           В чёрном окошке напиши:
         </div>
         <div class="cb">
-          <div class="cb-bar"><span class="cb-lang">Командная строка</span></div>
+          <div class="cb-bar"><span class="cb-lang">Командная строка</span><button class="cpbtn" onclick="copyCode('python --version', this)">копировать</button></div>
           <div class="cb-code">python --version</div>
         </div>
         <div class="sub-text">Должно появиться что-то вроде <code>Python 3.12.0</code> — это значит всё готово! ✅<br>
@@ -345,9 +375,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     ШАГ 2 — MCPI
-════════════════════════════════════════════ -->
+<!-- ═══════════ ШАГ 2 — MCPI ═══════════ -->
 <div class="step" id="step2">
   <div class="step-head">
     <div class="step-num sn2">02</div>
@@ -363,15 +391,15 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
       <div class="sub-ico">🌉</div>
       <div class="sub-body">
         <div class="sub-title">Что такое mcpi?</div>
-        <div class="sub-text">mcpi — это библиотека (набор готовых инструментов) которая соединяет Python и Minecraft. Без неё Python не знает что такое «блоки» и «координаты». С ней — знает всё!</div>
+        <div class="sub-text">mcpi — это библиотека (набор готовых инструментов), которая соединяет Python и Minecraft. Без неё Python не знает что такое «блоки» и «координаты». С ней — знает всё!</div>
       </div>
     </div>
 
     <div class="scheme">
       <div class="sch-box sb-py">🐍<br>Python<br>твой код</div>
-      <div class="sb-arrow">⟵</div>
+      <div class="sb-arrow">→</div>
       <div class="sch-box sb-mcpi">🔌<br>mcpi<br>мост</div>
-      <div class="sb-arrow">⟵</div>
+      <div class="sb-arrow">→</div>
       <div class="sch-box sb-mc">🧱<br>Minecraft<br>игра</div>
     </div>
 
@@ -405,7 +433,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
         <div class="sub-title">Не работает команда pip?</div>
         <div class="sub-text">Попробуй вместо <code>pip</code> написать <code>pip3</code>:
           <div class="cb">
-            <div class="cb-bar"><span class="cb-lang">Командная строка</span></div>
+            <div class="cb-bar"><span class="cb-lang">Командная строка</span><button class="cpbtn" onclick="copyCode('pip3 install mcpi', this)">копировать</button></div>
             <div class="cb-code">pip3 install mcpi</div>
           </div>
           Если и это не помогло — скорее всего при установке Python не поставил галочку PATH. Переустанови Python с галочкой.
@@ -416,9 +444,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     ШАГ 3 — РЕДАКТОР КОДА
-════════════════════════════════════════════ -->
+<!-- ═══════════ ШАГ 3 — РЕДАКТОР ═══════════ -->
 <div class="step" id="step3">
   <div class="step-head">
     <div class="step-num sn3">03</div>
@@ -438,364 +464,12 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:#e8f5e9;font-siz
       </div>
     </div>
 
-    <p style="font-size:13px;color:#90a4ae;margin-bottom:12px">Выбери что тебе подходит:</p>
+    <p style="font-size:13px;color:#90a4ae;margin:0 0 10px">Выбери что тебе подходит — нажми на вкладку:</p>
 
-    <div class="os-tabs">
-    
-      <button class="os-tab" onclick="setEditor('vscode')">💙 VS Code<br><span style="font-size:10px;font-weight:600">для продвинутых</span></button>
-      <button class="os-tab" onclick="setEditor('idle')">🐍 IDLE<br><span style="font-size:10px;font-weight:600">уже установлен</span></button>
-    
-    <div class="os-panel" id="ed-vscode">
-      <div class="substep">
-        <div class="sub-ico">💙</div>
-        <div class="sub-body">
-          <div class="sub-title">VS Code — мощный редактор</div>
-          <div class="sub-text">
-            VS Code используют профессиональные программисты. Он немного сложнее Thonny, но намного мощнее.<br><br>
-            📥 Скачай на <strong><a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></strong><br><br>
-            После установки открой VS Code → нажми на иконку Extensions (квадратики слева) → найди и установи расширение <strong>«Python»</strong> от Microsoft.
-          </div>
-        </div>
-      </div>
-      <div class="substep tip">
-        <div class="sub-ico">▶️</div>
-        <div class="sub-body">
-          <div class="sub-title">Как запустить в VS Code</div>
-          <div class="sub-text">Открой файл .py → нажми кнопку <strong>▶ Run Python File</strong> (треугольник в правом верхнем углу) или <strong>Ctrl+F5</strong>.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="os-panel" id="ed-idle">
-      <div class="substep">
-        <div class="sub-ico">🐍</div>
-        <div class="sub-body">
-          <div class="sub-title">IDLE — уже установлен вместе с Python</div>
-          <div class="sub-text">
-            IDLE устанавливается автоматически вместе с Python. Он базовый, но работает сразу без лишних шагов.<br><br>
-            <strong>Как найти IDLE:</strong><br>
-            Windows: меню Пуск → ищи «IDLE» или «Python»<br>
-            Mac: Finder → Applications → Python → IDLE
-          </div>
-        </div>
-      </div>
-      <div class="substep tip">
-        <div class="sub-ico">▶️</div>
-        <div class="sub-body">
-          <div class="sub-title">Как запустить в IDLE</div>
-          <div class="sub-text">Открой IDLE → File → New File → напиши код → Run → Run Module (или F5).</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="substep warn" style="margin-top:14px">
-      <div class="sub-ico">🚫</div>
-      <div class="sub-body">
-        <div class="sub-title">Не пиши код в Word или Блокноте!</div>
-        <div class="sub-text">Word добавляет невидимые символы и умные кавычки — Python их не понимает и выдаёт ошибки. Только специальный редактор кода или Блокнот с названием файла <code>.py</code>.</div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     ШАГ 4 — MINECRAFT
-════════════════════════════════════════════ -->
-<div class="step" id="step4">
-  <div class="step-head">
-    <div class="step-num sn4">04</div>
-    <div class="step-ico">🧱</div>
-    <div>
-      <div class="step-title">Подготавливаем Minecraft</div>
-      <div class="step-subtitle">Настройка игры для работы с Python</div>
-    </div>
-  </div>
-  <div class="step-body">
-
-    <div class="substep info">
-      <div class="sub-ico">ℹ️</div>
-      <div class="sub-body">
-        <div class="sub-title">Какой Minecraft нужен?</div>
-        <div class="sub-text">Нужен <strong>Minecraft: Java Edition</strong> — это классическая версия для компьютера. Не Bedrock (Windows 10/11 Edition), не телефон, не консоль — только Java Edition.</div>
-      </div>
-    </div>
-
-    <div class="compare">
-      <div class="cmp good">
-        <div class="cmp-head">✅ Подходит</div>
-        <div class="cmp-body">Minecraft: Java Edition<br>Скачивается на minecraft.net<br>Запускается через лаунчер</div>
-      </div>
-      <div class="cmp bad">
-        <div class="cmp-head">❌ Не подходит</div>
-        <div class="cmp-body">Minecraft Bedrock Edition<br>Minecraft на телефоне<br>Minecraft на Xbox / PlayStation</div>
-      </div>
-    </div>
-
-    <div class="substep highlight">
-      <div class="sub-ico">1️⃣</div>
-      <div class="sub-body">
-        <div class="sub-title">Установи мод RaspberryJuice</div>
-        <div class="sub-text">
-          mcpi работает с Minecraft через специальный мод. Его нужно скачать и положить в папку с модами.<br><br>
-          📥 Скачай <strong>RaspberryJuice</strong> на сайте: <strong><a href="https://dev.bukkit.org/projects/raspberryjuice" target="_blank">dev.bukkit.org/projects/raspberryjuice</a></strong><br><br>
-          Скачается файл <code>raspberryjuice-x.x.jar</code>
-        </div>
-      </div>
-    </div>
-
-    <div class="substep highlight">
-      <div class="sub-ico">2️⃣</div>
-      <div class="sub-body">
-        <div class="sub-title">Или установи Spigot-сервер</div>
-        <div class="sub-text">
-          Самый простой способ: установи <strong>Spigot</strong> (локальный сервер для Minecraft) и положи туда RaspberryJuice.<br><br>
-          <strong>Папка для мода:</strong><br>
-          Windows: <code>C:\Users\ТвоёИмя\AppData\Roaming\.minecraft\mods</code><br>
-          Mac: <code>~/Library/Application Support/minecraft/mods</code><br><br>
-          Положи скачанный .jar файл в эту папку.
-        </div>
-      </div>
-    </div>
-
-    <div class="substep tip">
-      <div class="sub-ico">🎮</div>
-      <div class="sub-body">
-        <div class="sub-title">Более простой вариант — Minecraft Education Edition</div>
-        <div class="sub-text">
-          Если есть доступ к <strong>Minecraft Education Edition</strong> — он уже поддерживает Python через встроенные инструменты. Спроси учителя или воспользуйся школьной лицензией.
-        </div>
-      </div>
-    </div>
-
-    <div class="substep highlight">
-      <div class="sub-ico">3️⃣</div>
-      <div class="sub-body">
-        <div class="sub-title">Запусти Minecraft и войди в мир</div>
-        <div class="sub-text">
-          Открой Minecraft → Одиночная игра → создай новый мир или открой существующий.<br><br>
-          ⚠️ Важно: мир должен быть <strong>открыт</strong> пока ты запускаешь Python-программу. Не в меню, а именно внутри игры.
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     ШАГ 5 — ПЕРВЫЙ ЗАПУСК
-════════════════════════════════════════════ -->
-<div class="step" id="step5">
-  <div class="step-head">
-    <div class="step-num sn5">05</div>
-    <div class="step-ico">🚀</div>
-    <div>
-      <div class="step-title">Первый запуск!</div>
-      <div class="step-subtitle">Пишем первую программу для Minecraft</div>
-    </div>
-  </div>
-  <div class="step-body">
-
-    <div class="substep info">
-      <div class="sub-ico">📋</div>
-      <div class="sub-body">
-        <div class="sub-title">Порядок запуска — строго по шагам!</div>
-        <div class="sub-text">Это важно: Minecraft должен быть запущен <strong>до</strong> того как ты запускаешь Python-программу. Не наоборот!</div>
-      </div>
-    </div>
-
-    <div class="checks" id="launchChecks">
-      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 1: Открыл Minecraft Java Edition</div>
-      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 2: Вошёл в мир (не в главном меню!)</div>
-      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 3: Открыл редактор кода (Thonny / VS Code / IDLE)</div>
-      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 4: Создал новый файл и сохранил как <code>hello.py</code></div>
-      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 5: Написал код (смотри ниже)</div>
-      <div class="check" onclick="tick(this)"><div class="ch-box">?</div>Шаг 6: Нажал Run / F5 для запуска</div>
-    </div>
-
-    <div class="substep highlight">
-      <div class="sub-ico">💻</div>
-      <div class="sub-body">
-        <div class="sub-title">Напиши этот код в редакторе</div>
-        <div class="sub-text">Это твоя первая mcpi-программа! Скопируй или напиши вручную:</div>
-        <div class="cb">
-          <div class="cb-bar"><span class="cb-lang">Python — hello.py</span><button class="cpbtn" onclick="copyCode('from mcpi.minecraft import Minecraft\nmc = Minecraft.create()\nmc.postToChat(\"Привет из Python! Я работаю!\")\nprint(\"Программа запущена!\")', this)">копировать</button></div>
-          <div class="cb-code"><span class="kw">from</span> mcpi.minecraft <span class="kw">import</span> Minecraft
-mc <span class="kw">=</span> Minecraft.create()
-mc.postToChat(<span class="st">"Привет из Python! Я работаю!"</span>)
-<span class="fn">print</span>(<span class="st">"Программа запущена!"</span>)</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="substep highlight">
-      <div class="sub-ico">▶️</div>
-      <div class="sub-body">
-        <div class="sub-title">Нажми Run (F5) и посмотри в Minecraft!</div>
-        <div class="sub-text">
-          Переключись в Minecraft — в чате должно появиться сообщение <strong>«Привет из Python! Я работаю!»</strong><br><br>
-          В редакторе кода в нижнем окне должно напечататься: <code>Программа запущена!</code>
-        </div>
-      </div>
-    </div>
-
-    <div class="result-box">
-      <div class="rb-title">🎉 ЕСЛИ ВСЁ ПОЯВИЛОСЬ — ТЫ ПОДКЛЮЧИЛСЯ!</div>
-      <div class="rb-body">
-        Python нашёл Minecraft и отправил ему сообщение. Теперь твой код управляет игрой! Можно начинать уроки 🚀
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     ШАГ 6 — ГОТОВО
-════════════════════════════════════════════ -->
-<div class="step" id="step6">
-  <div class="step-head">
-    <div class="step-num sn6">06</div>
-    <div class="step-ico">📁</div>
-    <div>
-      <div class="step-title">Как хранить файлы с кодом</div>
-      <div class="step-subtitle">Порядок в папках — порядок в голове</div>
-    </div>
-  </div>
-  <div class="step-body">
-
-    <div class="substep highlight">
-      <div class="sub-ico">📂</div>
-      <div class="sub-body">
-        <div class="sub-title">Создай специальную папку для курса</div>
-        <div class="sub-text">
-          Создай на рабочем столе папку <code>python_minecraft</code>. Внутри неё создай папки для каждого модуля:
-        </div>
-        <div class="cb">
-          <div class="cb-bar"><span class="cb-lang">Структура папок</span></div>
-          <div class="cb-code">📁 python_minecraft/
-   📁 module1/
-      📄 urok_1_1.py
-      📄 urok_1_2.py
-      ...
-   📁 module2/
-      📄 urok_2_1.py
-      ...
-   📁 moi_proekty/
-      📄 moj_zamok.py</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="substep tip">
-      <div class="sub-ico">💾</div>
-      <div class="sub-body">
-        <div class="sub-title">Важные правила для файлов</div>
-        <div class="sub-text">
-          ✅ Имя файла всегда заканчивается на <code>.py</code> — это расширение Python<br>
-          ✅ Не используй пробелы в именах файлов: <code>moj_zamok.py</code> вместо <code>мой замок.py</code><br>
-          ✅ Сохраняй файл перед запуском — <code>Ctrl+S</code> (Windows) или <code>Cmd+S</code> (Mac)<br>
-          ✅ Каждый урок — отдельный файл
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     FAQ
-════════════════════════════════════════════ -->
-<div style="margin-top:28px;margin-bottom:8px">
-  <div style="font-family:'Press Start 2P',monospace;font-size:9px;color:var(--lime);margin-bottom:14px">❓ ЧАСТЫЕ ВОПРОСЫ</div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">😤</span>Написал код, нажал Run — ничего не происходит!<span class="faq-arr">▼</span></div>
-    <div class="faq-a">Скорее всего Minecraft не запущен или ты не в мире (на паузе или в главном меню). Проверь: открыт ли Minecraft, ты внутри мира, не нажата ли пауза (Escape). Потом снова нажми Run.</div>
-  </div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">🔴</span>Появляется ошибка <code>ModuleNotFoundError: No module named 'mcpi'</code><span class="faq-arr">▼</span></div>
-    <div class="faq-a">mcpi не установлена. Открой командную строку и введи: <code>pip install mcpi</code>. Подожди пока установится. Если не помогло — попробуй <code>pip3 install mcpi</code>.</div>
-  </div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">🔴</span>Ошибка <code>ConnectionRefusedError</code> или <code>Connection refused</code><span class="faq-arr">▼</span></div>
-    <div class="faq-a">Python не может подключиться к Minecraft. Причины: 1) Minecraft не запущен — открой игру и войди в мир. 2) Нет мода RaspberryJuice — установи его. 3) Брандмауэр блокирует соединение — разреши Minecraft в настройках брандмауэра.</div>
-  </div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">🔴</span>Ошибка <code>NameError: name 'Minecraft' is not defined</code><span class="faq-arr">▼</span></div>
-    <div class="faq-a">Забыл написать первую строку импорта! Проверь что в самом начале программы есть: <code>from mcpi.minecraft import Minecraft</code> — с заглавной буквой M!</div>
-  </div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">🔴</span>Красные волнистые линии под кодом в редакторе<span class="faq-arr">▼</span></div>
-    <div class="faq-a">Это не всегда ошибка! Редактор иногда подчёркивает mcpi потому что не знает про эту библиотеку. Просто нажми Run — если программа работает, красные линии можно игнорировать.</div>
-  </div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">❓</span>У меня нет Minecraft. Могу я проходить курс?<span class="faq-arr">▼</span></div>
-    <div class="faq-a">Да! Модуль 1 и большая часть заданий работают без Minecraft — можно использовать онлайн-редактор Trinket (trinket.io) прямо в браузере. Уроки с mcpi (начиная с урока 1.5) потребуют игру, но остальное доступно без неё.</div>
-  </div>
-
-  <div class="faq" onclick="toggleFaq(this)">
-    <div class="faq-q"><span class="faq-ico">🌐</span>Можно ли писать код онлайн без установки?<span class="faq-arr">▼</span></div>
-    <div class="faq-a">Для обычного Python без mcpi — да! Используй <strong>trinket.io/python/new</strong> или <strong>programiz.com/python-programming/online-compiler</strong>. Для заданий с mcpi — только на своём компьютере с установленным Minecraft.</div>
-  </div>
-</div>
-
-<!-- FINAL -->
-<div class="final">
-  <h2>🟢 ВСЁ ГОТОВО!<br>МОЖНО НАЧИНАТЬ!</h2>
-  <p>Python установлен, mcpi подключена, редактор открыт, Minecraft запущен. Ты готов к первому уроку!</p>
-  <button class="final-go" onclick="alert('Открой Урок 1.1 в курсе!')">▶ УРОК 1.1 — ПОЕХАЛИ!</button>
-</div>
-
-<div style="text-align:center;padding:20px;font-size:11px;color:#37474f;margin-top:16px">
-  Python в Minecraft: Код, который строит миры · Руководство по настройке
-</div>
-
-</div>
-
-<script>
-function copyCode(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'скопировано!';
-    setTimeout(() => btn.textContent = 'копировать', 2000);
-  });
-}
-
-function setEditor(id) {
-  document.querySelectorAll('.os-tab').forEach((t,i) => t.classList.toggle('active', ['thonny','vscode','idle'][i] === id));
-  ['thonny','vscode','idle'].forEach(e => {
-    const el = document.getElementById('ed-' + e);
-    if(el) el.classList.toggle('active', e === id);
-  });
-}
-
-function tick(el) {
-  el.classList.toggle('ticked');
-  el.querySelector('.ch-box').textContent = el.classList.contains('ticked') ? '✓' : '?';
-  // update progress
-  const checks = document.querySelectorAll('#launchChecks .check');
-  const done = [...checks].filter(c => c.classList.contains('ticked')).length;
-  const steps = document.querySelectorAll('.prog-step');
-  steps.forEach((s, i) => {
-    if(i < Math.ceil(done / checks.length * 6)) s.classList.add('done');
-    s.classList.remove('active');
-  });
-  if(done > 0) steps[Math.min(Math.floor(done / checks.length * 5), 5)].classList.add('active');
-}
-
-function toggleFaq(el) {
-  el.classList.toggle('open');
-}
-
-function scrollTo(n) {
-  const el = document.getElementById('step' + n);
-  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-  document.querySelectorAll('.prog-step').forEach((s, i) => s.classList.toggle('active', i === n-1));
-}
-</script>
-</body>
-</html>
+    <!-- EDITOR TABS — FIXED STRUCTURE -->
+    <div class="editor-section">э
+      <div class="os-tabs" role="tablist">
+        <button class="os-tab active" onclick="setEditor('vscode')" role="tab" aria-selected="true">
+          <span class="tab-icon">💙</span>VS Code<span class="tab-sub">для продвинутых</span>
+        </button>
+<button class="os-
